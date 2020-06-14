@@ -28,26 +28,19 @@ module.exports = (app)=> {
                 }
             ))
             .catch(erro => console.log(erro));
+    });
 
+    app.get('/livros/form', function (req, resp) {
+        resp.marko(require('../views/livros/form/form.marko'));
+    });
 
-        //livroDao.lista(function (erro, resultados) {
-        //    resp.marko(
-        //        require('../views/livros/lista/lista.marko'),
-        //        {
-        //            livros: resultados
-        //        }
-        //    );
-        //});
+    app.post('/livros', (req, resp) => {
+        console.log(req.body);
 
-
-        //      db.all('SELECT * FROM livros', function(erro, resultados){
-        //          resp.marko(
-        //              require('../views/livros/lista/lista.marko'),
-        //              {
-        //                  livros: resultados
-        //              }
-        //          );
-        //      });
+        const livroDao =  new LivroDao(db);
+        livroDao.adiciona(req.body)
+            .then(resp.redirect('/livros'))
+            .catch(erro => console.log(erro));
     });
 };
 
