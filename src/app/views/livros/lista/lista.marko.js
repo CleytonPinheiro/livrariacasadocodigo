@@ -2,7 +2,7 @@
 "use strict";
 
 var marko_template = module.exports = require("marko/src/html").t(__filename),
-    marko_componentType = "/casadocodigo-node$1.0.0/src/app/views/livros/lista/lista.marko",
+    marko_componentType = "/casadocodigo$1.0.0/src/app/views/livros/lista/lista.marko",
     components_helpers = require("marko/src/components/helpers"),
     marko_renderer = components_helpers.r,
     marko_defineComponent = components_helpers.c,
@@ -44,7 +44,7 @@ function render(input, out, __component, component, state) {
       "\" data-type=\"remocao\">Remover</a></td></tr>");
   });
 
-  out.w("</table><script src=\"/estatico/js/remove-livro.js\">\n\n        </script>");
+  out.w("</table><script src=\"/estatico/js/remove-livro.js\">\r\n        </script>");
 
   init_components_tag({}, out);
 
@@ -61,7 +61,7 @@ marko_template._ = marko_renderer(render, {
 marko_template.Component = marko_defineComponent({}, marko_template._);
 
 marko_template.meta = {
-    id: "/casadocodigo-node$1.0.0/src/app/views/livros/lista/lista.marko",
+    id: "/casadocodigo$1.0.0/src/app/views/livros/lista/lista.marko",
     tags: [
       "marko/src/components/taglib/component-globals-tag",
       "marko/src/components/taglib/init-components-tag",
