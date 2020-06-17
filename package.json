@@ -14,7 +14,8 @@
       "marko": "4.13.4-1",
       "sqlite3": "4.0.2",
       "body-parser": "1.18.3",
-      "method-override": "3.0.0"
+      "method-override": "3.0.0",
+      "express-validator": "5.3.1"
   },
   "devDependencies": {
     "nodemon": "1.18.4"

@@ -36,4 +36,4 @@ app.use(function (erro, req,resp, next) {
     );
 });
 
-module.exports =  app;
+module.exports = app;
