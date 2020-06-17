@@ -1,4 +1,4 @@
-const BaseControlador = require('../controladores/base-controlador');
+const BaseControlador = require('../Controller/base-controlador');
 const baseControlador = new BaseControlador();
 
 module.exports = (app) => {
