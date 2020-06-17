@@ -1,56 +1,11 @@
-const { validationResult } = require('express-validator/check');
-
-const LivroDao = require('../infra/livro-dao');
-const db = require('../../config/database');
-
 class LivroControlador {
 
-    static rotas(){
+    static rotas() {
         return {
             lista: '/livros',
-            cadastro:'/livros/form',
-            edicao:'livros/form/:id',
-            delecao:'/livros/:id'
-        };
-    }
-
-    lista() {
-        return function(req, resp) {
-
-            const livroDao = new LivroDao(db);
-            livroDao.lista()
-                .then(livros => resp.marko(
-                    require('../views/livros/lista/lista.marko'),
-                    {
-                        livros: livros
-                    }
-                ))
-                .catch(erro => console.log(erro));
-        };
-    }
-
-    formularioCadastro() {
-        return function(req, resp) {
-            resp.marko(
-                require('../views/livros/form/form.marko'),
-                { livro: {} }
-            );
-        };
-    }
-
-    formularioEdicao() {
-        return function(req, resp) {
-            const id = req.params.id;
-            const livroDao = new LivroDao(db);
-
-            livroDao.buscaPorId(id)
-                .then(livro =>
-                    resp.marko(
-                        require('../views/livros/form/form.marko'),
-                        { livro: livro }
-                    )
-                )
-                .catch(erro => console.log(erro));
+            cadastro: '/livros/form',
+            edicao: '/livros/form/:id',
+            delecao: '/livros/:id'
         };
     }
 
@@ -63,15 +18,18 @@ class LivroControlador {
 
             if (!erros.isEmpty()) {
                 return resp.marko(
-                    require('../views/livros/form/form.marko'),
+                    templates.livros.form,
                     {
-                        livro: {},
+                        livro: req.body,
                         errosValidacao: erros.array()
                     }
                 );
             }
 
             livroDao.adiciona(req.body)
+
+                // agora o redirecionamento é feito utilizando o método
+                // estático que encapsula as URLs das rotas.
                 .then(resp.redirect(LivroControlador.rotas().lista))
                 .catch(erro => console.log(erro));
         };
@@ -83,21 +41,15 @@ class LivroControlador {
             const livroDao = new LivroDao(db);
 
             livroDao.atualiza(req.body)
+
+                // agora o redirecionamento é feito utilizando o método
+                // estático que encapsula as URLs das rotas.
                 .then(resp.redirect(LivroControlador.rotas().lista))
                 .catch(erro => console.log(erro));
         };
     }
 
-    remove() {
-        return function(req, resp) {
-            const id = req.params.id;
-
-            const livroDao = new LivroDao(db);
-            livroDao.remove(id)
-                .then(() => resp.status(200).end())
-                .catch(erro => console.log(erro));
-        };
-    }
+    // restante do código omitido.
 }
 
 module.exports = LivroControlador;
