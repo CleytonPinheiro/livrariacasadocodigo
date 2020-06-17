@@ -10,11 +10,9 @@ const templates = require('../app/views/templates');
 
 app.use('/estatico', express.static('src/app/public'));
 
-/*Configurando o middlewares*/
 app.use(bodyParser.urlencoded({
-    extended:true
+    extended: true
 }));
-
 app.use(methodOverride(function (req, res) {
     if (req.body && typeof req.body === 'object' && '_method' in req.body) {
       // look in urlencoded POST bodies and delete it

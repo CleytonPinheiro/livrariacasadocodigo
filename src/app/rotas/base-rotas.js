@@ -6,5 +6,7 @@ module.exports = (app) => {
 
     app.get(rotasBase.home, baseControlador.home());
 
-    app.route()
+    app.route(rotasBase.login)
+        .get(baseControlador.login())
+        .post(baseControlador.efetuaLogin());
 };

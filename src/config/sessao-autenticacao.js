@@ -3,34 +3,33 @@ const sessao = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-
-const usuarioDao = require('../app/infra/usuario-dao');
+const UsuarioDao = require('../app/infra/usuario-dao');
 const db = require('./database');
 
 module.exports = (app) => {
 
-    //configuração da sessão e da autenticação.
+    // configuração da sessão e da autenticação.
     passport.use(new LocalStrategy(
         {
             usernameField: 'email',
             passwordField: 'senha'
         },
         (email, senha, done) => {
-            const usuarioDao =  new usuarioDao(db);
+            const usuarioDao = new UsuarioDao(db);
             usuarioDao.buscaPorEmail(email)
-                .then(usuario => {
-                    if (!usuario || senha != usuario.senha) {
-                        return done(null, false, {
-                            mensagem: 'Login e senha incorretos!'
-                        });
-                    }
-                    return done(null, usuario);
-                })
-                .catch(erro => done(erro, false));
+                        .then(usuario => {
+                            if (!usuario || senha != usuario.senha) {
+                                return done(null, false, {
+                                    mensagem: 'Login e senha incorretos!'
+                                });
+                            }
+
+                            return done(null, usuario);
+                        })
+                        .catch(erro => done(erro, false));
         }
     ));
 
-    /*Serialização do usuário*/
     passport.serializeUser((usuario, done) => {
         const usuarioSessao = {
             nome: usuario.nome_completo,
@@ -55,4 +54,10 @@ module.exports = (app) => {
 
     app.use(passport.initialize());
     app.use(passport.session());
+
+
+    app.use(function (req, resp, next) {
+        req.passport = passport;
+        next();
+    });
 };

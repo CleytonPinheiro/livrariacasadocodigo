@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
 `;
 
 const INSERIR_USUARIO_1 =
-    `
+`
 INSERT INTO usuarios (
     nome_completo,
     email,
@@ -20,17 +20,18 @@ INSERT INTO usuarios (
 `;
 
 const LIVROS_SCHEMA =
-    `
+`
 CREATE TABLE IF NOT EXISTS livros (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL,
     preco REAL NOT NULL,
-    descricao TEXT DEFAULT ('') NOT NULL
+    descricao TEXT DEFAULT ('') NOT NULL,
+    url_capa TEXT
 )
 `;
 
 const INSERIR_LIVRO_1 =
-    `
+`
 INSERT INTO livros (
     titulo,
     preco,
@@ -39,7 +40,7 @@ INSERT INTO livros (
 `;
 
 const INSERIR_LIVRO_2 =
-    `
+`
 INSERT INTO livros (
     titulo,
     preco,
