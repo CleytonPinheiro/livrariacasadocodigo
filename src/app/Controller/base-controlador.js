@@ -4,7 +4,8 @@ class BaseControlador {
 
     static rotas() {
         return {
-            home: '/'
+            home: '/',
+            login: '/login'
         };
     }
 
